@@ -24,7 +24,11 @@ const router = createRouter({
         { name: 'team-members', path: ':teamId', component: TeamMembers, props: true },
       ],
     },
-    { name: 'users',path: '/users', components: {default: UsersList, footer: UsersFooter} },
+    { name: 'users',path: '/users', components: {default: UsersList, footer: UsersFooter}, 
+    beforeEnter(to, from, next){
+      console.log(to, from);
+      next()
+    } },
     { path: '/:notFound(.*)', component: NotFound },
   ],
   linkActiveClass: 'active',
@@ -39,6 +43,10 @@ const router = createRouter({
     }
   }
 });
+
+router.beforeEach(function(_, _2, next){
+next()
+})
 
 const app = createApp(App);
 app.use(router);
